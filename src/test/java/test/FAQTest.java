@@ -1,25 +1,28 @@
-package home;
+package test;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import pages.HomePage;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(Parameterized.class)
-public class AccordionTest {
+public class FAQTest extends MainTest {
 
-    private final String ACCORDION_QUESTION;
-    private final String ACCORDION_ANSWER;
+    private final String FAQ_question;
+    private final String FAQ_answer;
 
-    public AccordionTest(String accordionQuestion, String accordionAnswer) {
-        this.ACCORDION_QUESTION = accordionQuestion;
-        this.ACCORDION_ANSWER = accordionAnswer;
+    private final By FAQ_answer_actual = By.xpath(".//div[(@data-accordion-component='AccordionItemPanel' and not(@hidden))]");
+
+    public FAQTest(String accordionQuestion, String accordionAnswer) {
+        this.FAQ_question = accordionQuestion;
+        this.FAQ_answer = accordionAnswer;
     }
+
+
 
     @Parameterized.Parameters
     public static Object[][] getText() {
@@ -35,26 +38,15 @@ public class AccordionTest {
         };
     }
 
-    WebDriver webdriver;
-
-    @Before
-    public void startUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        webdriver = new ChromeDriver(options);
-        webdriver.get("https://qa-scooter.praktikum-services.ru/");
-    }
+//    WebDriver webdriver;
 
     @Test
-    public void Accordion() {
+    public void checkTextAnswersInFAQ() {
         HomePage homePage = new HomePage(webdriver);
-        homePage.scrollToAccordion();
-        homePage.clickAccordionItemByText(ACCORDION_QUESTION);
-        homePage.assertAccordionAnswer(ACCORDION_ANSWER);
-    }
+        homePage.scrollToFAQ();
+        homePage.clickFAQItemByText(FAQ_question);
+        homePage.waitForVisible(FAQ_answer_actual);
 
-    @After
-    public void teardown() {
-        webdriver.quit();
+        assertEquals(webdriver.findElement(FAQ_answer_actual).getText(), FAQ_answer);
     }
 }

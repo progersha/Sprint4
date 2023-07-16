@@ -8,8 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static org.junit.Assert.assertEquals;
-
 public class HomePage {
 
     private WebDriver webdriver;
@@ -18,27 +16,31 @@ public class HomePage {
         this.webdriver = webdriver;
     }
 
-    private final By ACCORDION = By.xpath(".//div[@data-accordion-component='Accordion']");
-    private final By ACCORDION_ANSWER = By.xpath(".//div[(@data-accordion-component='AccordionItemPanel' and not(@hidden))]");
+    private final By FAQ_section = By.xpath(".//div[@data-accordion-component='Accordion']");
+    private final By button_order_header = By.xpath(".//button[@class='Button_Button__ra12g']");
+    private final By button_order_page = By.xpath(".//button[contains(@class, 'Button_Middle__1CSJM')]");
 
     public void waitForVisible(By element) {
         new WebDriverWait(webdriver,
                 Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
-    public void scrollToAccordion() {
+    public void scrollToFAQ() {
         ((JavascriptExecutor)webdriver).executeScript("arguments[0].scrollIntoView();",
-                webdriver.findElement(ACCORDION));
+                webdriver.findElement(FAQ_section));
     }
 
-    public void clickAccordionItemByText(String text) {
+    public void clickFAQItemByText(String text) {
         By element = By.xpath(".//div[@data-accordion-component='AccordionItemButton' and contains(text(),'"+text+"')]");
         waitForVisible(element);
         webdriver.findElement(element).click();
     }
 
-    public void assertAccordionAnswer(String text) {
-        waitForVisible(ACCORDION_ANSWER);
-        assertEquals(webdriver.findElement(ACCORDION_ANSWER).getText(), text);
+    public void clickCreateOrderFromHeader() {
+        webdriver.findElement(button_order_header).click();
+    }
+
+    public void clickCreateOrderFromPage() {
+        webdriver.findElement(button_order_page).click();
     }
 }
