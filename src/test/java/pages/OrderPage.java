@@ -25,7 +25,6 @@ public class OrderPage {
     private final By comment = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     private final By next_button = By.xpath(".//button[contains(text(),'Далее')]");
     private final By order_button = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
-    private final By order_confirm_modal_header = By.xpath("(.//div[@class='Order_ModalHeader__3FDaJ' and text()='Хотите оформить заказ?'])");
     private final By order_success_modal_header = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ']");
 
     public void setMetroStation(String nameStation) {
@@ -69,8 +68,9 @@ public class OrderPage {
     }
 
     public String getOrderModalText() {
-        new WebDriverWait(webdriver,
-                Duration.ofSeconds(5)).until(ExpectedConditions.invisibilityOfElementLocated(order_confirm_modal_header));
-        return webdriver.findElement(order_success_modal_header).getText();
+        new WebDriverWait(webdriver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(order_success_modal_header));
+        String[] modal_header = webdriver.findElement(order_success_modal_header).getText().split("\n");
+        return modal_header[0];
     }
 }

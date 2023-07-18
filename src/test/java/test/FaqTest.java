@@ -4,22 +4,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import pages.HomePage;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class FAQTest extends MainTest {
+public class FaqTest extends MainTest {
 
-    private final String FAQ_question;
-    private final String FAQ_answer;
+    private final String faq_question;
+    private final String faq_answer;
 
-    private final By FAQ_answer_actual = By.xpath(".//div[(@data-accordion-component='AccordionItemPanel' and not(@hidden))]");
-
-    public FAQTest(String accordionQuestion, String accordionAnswer) {
-        this.FAQ_question = accordionQuestion;
-        this.FAQ_answer = accordionAnswer;
+    public FaqTest(String faq_question, String faq_answer) {
+        this.faq_question = faq_question;
+        this.faq_answer = faq_answer;
     }
 
 
@@ -38,15 +35,13 @@ public class FAQTest extends MainTest {
         };
     }
 
-//    WebDriver webdriver;
-
     @Test
-    public void checkTextAnswersInFAQ() {
+    public void checkTextAnswersInFaq() {
         HomePage homePage = new HomePage(webdriver);
-        homePage.scrollToFAQ();
-        homePage.clickFAQItemByText(FAQ_question);
-        homePage.waitForVisible(FAQ_answer_actual);
+        homePage.scrollToFaq();
+        homePage.clickFaqItemByText(faq_question);
+        String actual = homePage.getTextAnswer();
 
-        assertEquals(webdriver.findElement(FAQ_answer_actual).getText(), FAQ_answer);
+        assertEquals(actual, faq_answer);
     }
 }

@@ -16,23 +16,24 @@ public class HomePage {
         this.webdriver = webdriver;
     }
 
-    private final By FAQ_section = By.xpath(".//div[@data-accordion-component='Accordion']");
+    private final By faq_section = By.xpath(".//div[@data-accordion-component='Accordion']");
     private final By button_order_header = By.xpath(".//button[@class='Button_Button__ra12g']");
     private final By button_order_page = By.xpath(".//button[contains(@class, 'Button_Middle__1CSJM')]");
+    private final By faq_answer_actual = By.xpath(".//div[(@data-accordion-component='AccordionItemPanel' and not(@hidden))]");
 
-    public void waitForVisible(By element) {
+    public String getTextAnswer() {
         new WebDriverWait(webdriver,
-                Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(element));
+                Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(faq_answer_actual));
+        return webdriver.findElement(faq_answer_actual).getText();
     }
 
-    public void scrollToFAQ() {
+    public void scrollToFaq() {
         ((JavascriptExecutor)webdriver).executeScript("arguments[0].scrollIntoView();",
-                webdriver.findElement(FAQ_section));
+                webdriver.findElement(faq_section));
     }
 
-    public void clickFAQItemByText(String text) {
+    public void clickFaqItemByText(String text) {
         By element = By.xpath(".//div[@data-accordion-component='AccordionItemButton' and contains(text(),'"+text+"')]");
-        waitForVisible(element);
         webdriver.findElement(element).click();
     }
 
