@@ -15,21 +15,25 @@ public class HomePage {
     public HomePage(WebDriver webdriver) {
         this.webdriver = webdriver;
     }
+    private final By cookiesButton = By.id("rcc-confirm-button");
+    private final By faqSection = By.xpath(".//div[@data-accordion-component='Accordion']");
+    private final By buttonOrderHeader = By.xpath(".//button[@class='Button_Button__ra12g']");
+    private final By buttonOrderPage = By.xpath(".//button[contains(@class, 'Button_Middle__1CSJM')]");
+    private final By faqAnswerActual = By.xpath(".//div[(@data-accordion-component='AccordionItemPanel' and not(@hidden))]");
 
-    private final By faq_section = By.xpath(".//div[@data-accordion-component='Accordion']");
-    private final By button_order_header = By.xpath(".//button[@class='Button_Button__ra12g']");
-    private final By button_order_page = By.xpath(".//button[contains(@class, 'Button_Middle__1CSJM')]");
-    private final By faq_answer_actual = By.xpath(".//div[(@data-accordion-component='AccordionItemPanel' and not(@hidden))]");
+    public void acceptCookies() {
+        webdriver.findElement(cookiesButton).click();
+    }
 
     public String getTextAnswer() {
         new WebDriverWait(webdriver,
-                Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(faq_answer_actual));
-        return webdriver.findElement(faq_answer_actual).getText();
+                Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(faqAnswerActual));
+        return webdriver.findElement(faqAnswerActual).getText();
     }
 
     public void scrollToFaq() {
         ((JavascriptExecutor)webdriver).executeScript("arguments[0].scrollIntoView();",
-                webdriver.findElement(faq_section));
+                webdriver.findElement(faqSection));
     }
 
     public void clickFaqItemByText(String text) {
@@ -38,10 +42,10 @@ public class HomePage {
     }
 
     public void clickCreateOrderFromHeader() {
-        webdriver.findElement(button_order_header).click();
+        webdriver.findElement(buttonOrderHeader).click();
     }
 
     public void clickCreateOrderFromPage() {
-        webdriver.findElement(button_order_page).click();
+        webdriver.findElement(buttonOrderPage).click();
     }
 }

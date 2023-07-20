@@ -16,16 +16,17 @@ public class OrderPage {
     }
 
     private final By name = By.xpath(".//input[@placeholder='* Имя']");
-    private final By last_name = By.xpath(".//input[@placeholder='* Фамилия']");
+    private final By lastName = By.xpath(".//input[@placeholder='* Фамилия']");
     private final By address = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     private final By metro = By.xpath(".//div[@class='select-search']");
     private final By phone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     private final By date = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
     private final By duration = By.xpath(".//div[@class='Dropdown-root']");
     private final By comment = By.xpath(".//input[@placeholder='Комментарий для курьера']");
-    private final By next_button = By.xpath(".//button[contains(text(),'Далее')]");
-    private final By order_button = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
-    private final By order_success_modal_header = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ']");
+    private final By nextButton = By.xpath(".//button[contains(text(),'Далее')]");
+    private final By orderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
+    private final By applyButton = By.xpath(".//button[text()='Да']");
+    private final By orderSuccessModalHeader = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ']");
 
     public void setMetroStation(String nameStation) {
         webdriver.findElement(metro).click();
@@ -35,14 +36,14 @@ public class OrderPage {
 
     public void fillOrderClientData(String name, String lastname, String address, String metro, String phone){
         webdriver.findElement(this.name).sendKeys(name);
-        webdriver.findElement(last_name).sendKeys(lastname);
+        webdriver.findElement(lastName).sendKeys(lastname);
         webdriver.findElement(this.address).sendKeys(address);
         setMetroStation(metro);
         webdriver.findElement(this.phone).sendKeys(phone);
     }
 
     public void clickNextButton() {
-        webdriver.findElement(next_button).click();
+        webdriver.findElement(nextButton).click();
     }
 
     public void setDuration(String days) {
@@ -64,13 +65,17 @@ public class OrderPage {
     }
 
     public void clickOrderButton() {
-        webdriver.findElement(order_button).click();
+        webdriver.findElement(orderButton).click();
+    }
+
+    public void clickApplyButton() {
+        webdriver.findElement(applyButton).click();
     }
 
     public String getOrderModalText() {
         new WebDriverWait(webdriver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(order_success_modal_header));
-        String[] modal_header = webdriver.findElement(order_success_modal_header).getText().split("\n");
+                .until(ExpectedConditions.visibilityOfElementLocated(orderSuccessModalHeader));
+        String[] modal_header = webdriver.findElement(orderSuccessModalHeader).getText().split("\n");
         return modal_header[0];
     }
 }
