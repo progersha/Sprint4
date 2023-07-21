@@ -15,11 +15,11 @@ public class HomePage {
     public HomePage(WebDriver webdriver) {
         this.webdriver = webdriver;
     }
-    private final By cookiesButton = By.id("rcc-confirm-button");
-    private final By faqSection = By.xpath(".//div[@data-accordion-component='Accordion']");
-    private final By buttonOrderHeader = By.xpath(".//button[@class='Button_Button__ra12g']");
-    private final By buttonOrderPage = By.xpath(".//button[contains(@class, 'Button_Middle__1CSJM')]");
-    private final By faqAnswerActual = By.xpath(".//div[(@data-accordion-component='AccordionItemPanel' and not(@hidden))]");
+    private By cookiesButton = By.id("rcc-confirm-button");
+    private By faqSection = By.xpath(".//div[@data-accordion-component='Accordion']");
+    private By buttonOrderHeader = By.xpath(".//button[@class='Button_Button__ra12g']");
+    private By buttonOrderPage = By.xpath(".//button[contains(@class, 'Button_Middle__1CSJM')]");
+    private By faqAnswerActual = By.xpath(".//div[(@data-accordion-component='AccordionItemPanel' and not(@hidden))]");
 
     public void acceptCookies() {
         webdriver.findElement(cookiesButton).click();

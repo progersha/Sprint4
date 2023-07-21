@@ -15,18 +15,18 @@ public class OrderPage {
         this.webdriver = webdriver;
     }
 
-    private final By name = By.xpath(".//input[@placeholder='* Имя']");
-    private final By lastName = By.xpath(".//input[@placeholder='* Фамилия']");
-    private final By address = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
-    private final By metro = By.xpath(".//div[@class='select-search']");
-    private final By phone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
-    private final By date = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
-    private final By duration = By.xpath(".//div[@class='Dropdown-root']");
-    private final By comment = By.xpath(".//input[@placeholder='Комментарий для курьера']");
-    private final By nextButton = By.xpath(".//button[contains(text(),'Далее')]");
-    private final By orderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
-    private final By applyButton = By.xpath(".//button[text()='Да']");
-    private final By orderSuccessModalHeader = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ']");
+    private By name = By.xpath(".//input[@placeholder='* Имя']");
+    private By lastName = By.xpath(".//input[@placeholder='* Фамилия']");
+    private By address = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    private By metro = By.xpath(".//div[@class='select-search']");
+    private By phone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private By date = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
+    private By duration = By.xpath(".//div[@class='Dropdown-root']");
+    private By comment = By.xpath(".//input[@placeholder='Комментарий для курьера']");
+    private By nextButton = By.xpath(".//button[contains(text(),'Далее')]");
+    private By orderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
+    private By applyButton = By.xpath(".//button[text()='Да']");
+    private By orderSuccessModalHeader = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ']");
 
     public void setMetroStation(String nameStation) {
         webdriver.findElement(metro).click();
